@@ -1,0 +1,91 @@
+<html>
+<head>
+  <title>My First Application</title>
+  <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+  <script type="text/javascript" type="text/javascript">
+    Parse.initialize("9PlntbOKDTHbqBFXYbMPqLJ580pnIBvV5hKcm1Iz","xY87HlmNEdQM0QarIcXeTtgIun5kbxm0rlb7t9AB"); //ADD APP ID and JS KEY here
+    Parse.serverURL = 'https://parseapi.back4app.com/'
+  </script>
+  <style>   
+Body {  
+  font-family: Calibri, Helvetica, sans-serif;  
+  background-color: pink;  
+}  
+button {   
+       background-color: #4CAF50;   
+       width: 100%;  
+        color: orange;   
+        padding: 15px;   
+        margin: 10px 0px;   
+        border: none;   
+        cursor: pointer;   
+         }   
+ form {   
+        border: 3px solid #f1f1f1;   
+    }   
+ input[type=text], input[type=password] {   
+        width: 100%;   
+        margin: 8px 0;  
+        padding: 12px 20px;   
+        display: inline-block;   
+        border: 2px solid green;   
+        box-sizing: border-box;   
+    }  
+ button:hover {   
+        opacity: 0.7;   
+    }   
+  .cancelbtn {   
+        width: auto;   
+        padding: 10px 18px;  
+        margin: 10px 5px;  
+    }   
+        
+     
+ .container {   
+        padding: 25px;   
+        background-color: lightblue;  
+    }   
+</style>
+</head>
+<body>
+	   <center> <h1> Login to M S ACHARYA MEMORRIAL TRUST </h1> </center>   
+    <form>  
+        <div class="container">   
+            <label for="fname">Email:</label>
+	<input type="text" id="fname" name="fname"><br><br>
+	<label for="lname">Password:</label>
+	<input type="text" id="lname" name="lname"><br><br>
+	<button onclick="getData()">Create</button><br><br>
+            <input type="checkbox" checked="checked"> Remember me   
+            <button type="button" class="cancelbtn"> Cancel</button>   
+            Create New User <a href="file:///C:/Users/kmohammad006/Sarthak_Prayas_Website/create.html"> create? </a>   
+			</div>   
+    </form>  
+		<script>
+	  	function getData() {
+			alert("Calling GET");
+
+			var fname = document.getElementById("fname").value;
+			var lname = document.getElementById("lname").value;
+
+			const MyFirstClass = Parse.Object.extend("Person");
+            const query = new Parse.Query(MyFirstClass);
+			query.equalTo("fname", fname);
+			query.equalTo("lname", lname);
+
+			query.find().then((results) => {
+				// You can use the "get" method to get the value of an attribute
+				alert("fname---->  " + results[0].get('fname'));
+				alert("lname---->  " + results[0].get('lname'));
+				if (typeof document !== 'undefined')
+					document.write(`Person found: ${JSON.stringify(results)}`);
+				console.log('Person found', results);
+			}, (error) => {
+				if (typeof document !== 'undefined')
+					document.write(`Error while fetching SoccerPlayers: ${JSON.stringify(error)}`);
+				console.error('Error while fetching Record', error);
+			});
+		}
+		</script>
+</body>
+</html>	

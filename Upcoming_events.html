@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upcoming Events</title>
+  <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+  <script type="text/javascript" type="text/javascript">
+    Parse.initialize("GIRiYr3wnRW97Y7TBwupmkDP7aD6NEhvKkTXg4qG","AAPJzTJvEJIsJTAD6gQBF1KDcpB9nINwfXG1d8x5"); //ADD APP ID and JS KEY here
+    Parse.serverURL = 'https://parseapi.back4app.com/'
+  </script>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Theme CSS -->
+    <link href="css/agency.min.css" rel="stylesheet">
+</head>
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                
+                <img src="img/logo.jpg">
+                
+                <!--a class="navbar-brand page-scroll" href="#page-top">M S Acharya Memorrial Trust</a-->
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+	</li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+	 <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Upcoming Events</h2>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+				<p class="text-muted">
+	
+	<input type="text" id="u_Message" name="Message"><br><br>
+	 
+    <button onclick="updateData()">Update</button><br><br>
+	<button onclick="sendmail()">send </button><br><br>
+	<input type="button" value="Go Back" onclick="location.href = 'admin.html';">
+	
+	
+
+<script type="text/javascript">
+
+var myLink = document.getElementById('mylink');
+
+myLink.onclick = function(){
+
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "C:\Users\VenkatRamana\Downloads\M_S_Acharya_Memorial_trust\mail\mail.js"; 
+    
+    return false;
+
+}
+
+
+</script>
+	
+  </div>
+                <div class="col-md-4">
+				     </div>
+            </div>
+        </div>
+		</section>
+	<script type = "text/javascript">
+	function sendmail() {
+	alert("Calling POST");
+	
+			var nodemailer = require('nodemailer');
+			
+			var transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: '', //username for sender
+				pass: ''	// password for sender
+			}
+			});
+			 alert("Calling POST");
+			var mailOptions = {
+			from: 'noreply@gmail.com',
+			to: 'mvrr1997@gmail.com',
+			subject: 'Upcoming Events',
+			text: 'All the upcoming events'
+			};
+			
+			transporter.sendMail(mailOptions, function(error, info){
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email sent: ' + info.response);
+			}
+			});
+}
+
+
+
+			
+	  	function postData() {
+		  alert("Calling POST");
+
+		  var Message = document.getElementById("Message").value;
+		  
+alert("Alert 2");
+		  const MyFirstClass = Parse.Object.extend("Upcoming_event");
+		  const myFirstClass = new MyFirstClass();
+
+alert("Alert 2");
+
+		  myFirstClass.set("Message", Message);
+		 
+alert("Alert 2");
+
+		  myFirstClass.save()
+		  .then((object) => {
+		    // Success
+		    alert('New object created with objectId: ' + object.id);
+		  }, (error) => {
+		    // Save fails
+		    alert('Failed to create new object, with error code: ' + error.message);
+		  });
+		  alert("i am done!");
+		}
+
+		function getData() {
+			alert("Calling GET");
+
+			var Ojid = "HjMsFzlWHB";
+			
+			const MyFirstClass = Parse.Object.extend("Upcoming_event");
+            const query = new Parse.Query(MyFirstClass);
+
+			query.equalTo("objectId", Ojid);
+			
+			query.find().then((results) => {
+				// You can use the "get" method to get the value of an attribute
+				alert("Message---->  " + results[0].get('Message'));
+				if (typeof document !== 'undefined')
+					document.write(`Upcoming_event found: ${JSON.stringify(results)}`);
+				console.log('Upcoming_event found', results);
+			}, (error) => {
+				if (typeof document !== 'undefined')
+					document.write(`Error while fetching SoccerPlayers: ${JSON.stringify(error)}`);
+				console.error('Error while fetching Record', error);
+			});
+		}
+
+
+	    function updateData() {
+			
+			var u_objectId = "HjMsFzlWHB";
+			var u_Message = document.getElementById("u_Message").value;
+			
+			const MyFirstClass = Parse.Object.extend("Upcoming_event");
+            const query = new Parse.Query(MyFirstClass);
+
+			query.get(u_objectId).then((object) => {
+			  object.set('Message', u_Message);
+			  
+			  object.save().then((response) => {
+			  	alert("Updated Message---->   " + response.get("Message"));
+				
+				
+			
+			});
+		});
+	 }
+
+
+	 function deleteData() {
+	 	alert("Calling DELETE");
+
+		var d_objectId = document.getElementById("d_objectId").value;
+
+		const MyFirstClass = Parse.Object.extend("MyFirstClass");
+        const query = new Parse.Query(MyFirstClass);
+
+		query.get(d_objectId).then((object) => {
+			object.destroy().then((response) => {
+				if (typeof document !== 'undefined')
+					document.write(`Deleted Record: ${JSON.stringify(response)}`);
+					console.log('Deleted Record', response);
+				}, (error) => {
+					if (typeof document !== 'undefined')
+						document.write(`Error while deleting Record: ${JSON.stringify(error)}`);
+					console.error('Error while deleting Record', error);
+				});
+		});
+	}
+	</script>
+
+</body>
+</html>
